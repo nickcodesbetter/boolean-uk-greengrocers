@@ -1,17 +1,3 @@
-/*
-
-This is how an item object should look like
-
-{
-  id: "001-beetroot", // <- the item id matches the icon name in the assets/icons folder
-  name: "beetroot",
-  price: 0.35 // <- You can come up with your own prices
-}
-
-
-
-
-*/
 
 // Description
 // In this exercise we explore a common scenario in eCommerce, adding and removing items from the cart, and calculating the total.
@@ -39,11 +25,31 @@ This is how an item object should look like
 // - Add sorting to the store ie. sort by price or sort alphabetically; when a user clicks sort they will see a sorted list of items
 
 
+/*
+
+This is how an item object should look like
+
+{
+  id: "001-beetroot", // <- the item id matches the icon name in the assets/icons folder
+  name: "beetroot",
+  price: 0.35 // <- You can come up with your own prices
+}
+
+*/
 
 
 // Plan
 
 // 1.0 complete data structures for products
+
+// {
+//   id: "001-beetroot", // <- the item id matches the icon name in the assets/icons folder
+//   name: "beetroot",
+//   price: 0.35 // <- You can come up with your own prices
+// }
+
+
+// (What I came up with originally)
 // const data{
     // id:
     // name:
@@ -51,6 +57,8 @@ This is how an item object should look like
     // button:   
     //     
     // }
+// (/What I came up with originally)
+
 
 // 2.0 bridging
 // 2.1 create bridge for the store items "store--item-list"
@@ -58,6 +66,7 @@ This is how an item object should look like
 // (I was thinking of including cart--item-list-container, but I don't think that would be correct)
 // 2.3 create bridge for total section
 
+// Store section
 /* <li>
   <div class="store--item-icon">
     <img src="assets/icons/001-beetroot.svg" alt="beetroot" />
@@ -78,6 +87,29 @@ This is how an item object should look like
 // works with "store-item-icon", not completely certain, but it would make sense as it is the class and it 
 // ...will most likely create the foundation for the image and the button 
 // ...( ? not sure about this but classes are not in data, so it may not work, classes are found in the html...?)
-// ...(... do classes work?...?)
+// ...(... do classes work? - gap in knowledge/I can't quite remember...?)
 // 3.5 create an <img> and append
-// works with data.image
+// works with *EDIT: data.id - (original: data.image)* - although how do I link this to the images?
+// 3.6 create a <button>
+// works with nothing? keep blank?
+
+// input: an array of items
+// Output: nothing...yet (Need to link it to the cart)
+
+
+// Cart Section
+
+/* <li>
+  <img
+    class="cart--item-icon"
+    src="assets/icons/001-beetroot.svg"
+    alt="beetroot"
+  />
+  <p>beetroot</p>
+  <button class="quantity-btn remove-btn center">-</button>
+  <span class="quantity-text center">1</span>
+  <button class="quantity-btn add-btn center">+</button>
+</li> */
+
+// 4.0 createCartItemList(data)
+// 
