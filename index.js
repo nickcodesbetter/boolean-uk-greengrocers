@@ -1,3 +1,66 @@
+const data = [ 
+
+{
+  id: "001-beetroot", // <- the item id matches the icon name in the assets/icons folder
+  name: "beetroot",
+  price: 0.35 // <- You can come up with your own prices
+},
+
+{
+  id: "002-carrot", // <- the item id matches the icon name in the assets/icons folder
+  name: "carrot",
+  price: 0.40 // <- You can come up with your own prices
+},
+
+{
+  id: "003-apple", // <- the item id matches the icon name in the assets/icons folder
+  name: "apple",
+  price: 0.25 // <- You can come up with your own prices
+},
+
+{
+  id: "004-apricot", // <- the item id matches the icon name in the assets/icons folder
+  name: "apricot",
+  price: 0.35 // <- You can come up with your own prices
+},
+
+{
+  id: "005-avocado", // <- the item id matches the icon name in the assets/icons folder
+  name: "avacado",
+  price: 0.38 // <- You can come up with your own prices
+},
+
+{
+  id: "006-bananas", // <- the item id matches the icon name in the assets/icons folder
+  name: "bananas",
+  price: 0.15 // <- You can come up with your own prices
+},
+
+{
+  id: "007-bell-pepper", // <- the item id matches the icon name in the assets/icons folder
+  name: "beetroot",
+  price: 0.50 // <- You can come up with your own prices
+},
+
+{
+  id: "008-berry", // <- the item id matches the icon name in the assets/icons folder
+  name: "berry",
+  price: 0.70 // <- You can come up with your own prices
+},
+{
+  id: "009-blueberry", // <- the item id matches the icon name in the assets/icons folder
+  name: "blueberry",
+  price: 0.60 // <- You can come up with your own prices
+},
+
+{
+  id: "010-eggplant", // <- the item id matches the icon name in the assets/icons folder
+  name: "eggplant",
+  price: 0.45 // <- You can come up with your own prices
+}
+
+];
+
 
 // Description
 // In this exercise we explore a common scenario in eCommerce, adding and removing items from the cart, and calculating the total.
@@ -6,7 +69,7 @@
 // - A user can view a selection of items in the store
 // - From the store, a user can add an item to their cart
 // - From the cart, a user can view and adjust the number of items in their cart
-//     - If an item's quantity equals zero it is removed from the cart
+// - If an item's quantity equals zero it is removed from the cart
 // - A user can view the current total in their cart
 
 // Instructions
@@ -66,6 +129,11 @@ This is how an item object should look like
 // (I was thinking of including cart--item-list-container, but I don't think that would be correct)
 // 2.3 create bridge for total section
 
+
+const storeItemEl = document.querySelector(".store--item-list")
+const cartItemEl = document.querySelector(".cart--item-list")
+
+
 // Store section
 /* <li>
   <div class="store--item-icon">
@@ -92,9 +160,24 @@ This is how an item object should look like
 // works with *EDIT: data.id - (original: data.image)* - although how do I link this to the images?
 // 3.6 create a <button>
 // works with nothing? keep blank?
+// 3.7 create renderAddTpCartButton (basically copy renderPlusButton)
+// 3.8 make sure renderADdToCartButton is part of the item/itemList for loop, so it's generated every iteration
+// 3.9 Similarly to line 122 of the dog exercise, create addEventListener within the for loop
+// 3.91 Ensure this is linked to the cart - renderCart - within the function
+
+// function createStoreItem(data) {
+  console.log(data)
+
+// }
+  
+// Tips
+// - Use action functions with your Event Listeners, these will have names like addItemToCart and removeItemFromCart
+// 3.92 use action functions - addItemToCart and removeItemFromCart - should this be in the cart section?
 
 // input: an array of items
 // Output: nothing...yet (Need to link it to the cart)
+
+
 
 
 // Cart Section
@@ -112,4 +195,21 @@ This is how an item object should look like
 </li> */
 
 // 4.0 createCartItemList(data)
-// 
+// 4.1 ensure that section is linked to the iterations
+// 4.2 create a <li> <img>, <p>, <button> <span> and 
+// ... <button> tags and append-rushed this, too simple?redo?
+// 4.2 cont... include their classes.
+// create function to remove and to add items
+// ... would it be an if statement? if 0 then delete/remove
+
+//  Tips
+// - Use action functions with your Event Listeners, 
+// ...these will have names like addItemToCart and removeItemFromCart
+// 4.3 use action functions - addItemToCart and removeItemFromCart
+// ... - link the buttons to totalPrice/calulator
+
+
+// 5.0 createTotalPrice/calculator
+// 5.1 retrieve price from data being added or 
+// ...multiplied in the cart.
+// 5.2 or deducted.
