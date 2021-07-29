@@ -62,6 +62,95 @@ const data = [
 ];
 
 
+const cartItems = [
+    {
+      item: {
+        id: "010-eggplant", // <- the item id matches the icon name in the assets/icons folder
+        name: "eggplant",
+        price: 0.45 // <- You can come up with your own prices
+      },
+      quantity: 3
+    },
+    {
+    item: {
+      id: "001-beetroot", // <- the item id matches the icon name in the assets/icons folder
+      name: "beetroot",
+      price: 0.35 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "002-carrot", // <- the item id matches the icon name in the assets/icons folder
+      name: "carrot",
+      price: 0.40 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "003-apple", // <- the item id matches the icon name in the assets/icons folder
+      name: "apple",
+      price: 0.25 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "004-apricot", // <- the item id matches the icon name in the assets/icons folder
+      name: "apricot",
+      price: 0.35 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "005-avocado", // <- the item id matches the icon name in the assets/icons folder
+      name: "avacado",
+      price: 0.38 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "006-bananas", // <- the item id matches the icon name in the assets/icons folder
+      name: "bananas",
+      price: 0.15 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "007-bell-pepper", // <- the item id matches the icon name in the assets/icons folder
+      name: "beetroot",
+      price: 0.50 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+  {
+    item: {
+      id: "008-berry", // <- the item id matches the icon name in the assets/icons folder
+      name: "berry",
+      price: 0.70 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+    {
+    item: {
+      id: "009-blueberry", // <- the item id matches the icon name in the assets/icons folder
+      name: "blueberry",
+      price: 0.60 // <- You can come up with your own prices
+    },
+    quantity: 2
+  },
+]
+
+// Add below?
+const newCartItem = {
+  item: storeItem
+  quantity: 1
+}
+
 // Description
 // In this exercise we explore a common scenario in eCommerce, adding and removing items from the cart, and calculating the total.
 
@@ -130,17 +219,12 @@ This is how an item object should look like
 // 2.3 create bridge for total section
 
 
-const storeItemEl = document.querySelector(".store--item-list")
-const cartItemEl = document.querySelector(".cart--item-list")
+const storeItemListEl = document.querySelector(".store--item-list")
+const cartItemListEl = document.querySelector(".cart--item-list")
 
 
 // Store section
-/* <li>
-  <div class="store--item-icon">
-    <img src="assets/icons/001-beetroot.svg" alt="beetroot" />
-  </div>
-  <button>Add to cart</button>
-</li> */
+
 
 // 3.0 createStoreItemList(data)
 // 3.1 for loop over data
@@ -165,11 +249,47 @@ const cartItemEl = document.querySelector(".cart--item-list")
 // 3.9 Similarly to line 122 of the dog exercise, create addEventListener within the for loop
 // 3.91 Ensure this is linked to the cart - renderCart - within the function
 
-// function createStoreItem(data) {
-  console.log(data)
+/* <li>
+  <div class="store--item-icon">
+    <img src="assets/icons/001-beetroot.svg" alt="beetroot" />
+  </div>
+  <button>Add to cart</button>
+</li> */
 
-// }
-  
+console.log(data)
+
+function createStoreItem(storeItemList) {
+    console.log("Inside createStoreItem: ", storeItemList)
+
+    storeItemListEl.innerHTML = ""
+
+    for(let i = 0; i < storeItemList.length; i++) {
+     const storeItem = storeItemList[i]
+      console.log(storeItem)
+    const storeItemListItemEl = document.createElement("li");
+     
+     const storeItemDivEl = document.createElement("div");
+     storeItemDivEl.className = "store--item-icon";
+      console.log("Inside storreItemDivEl: ", storeItemDivEl)
+    //  I'm not sure about the below - img , it makes sense to me to include it
+     const storeItemImgEl = document.createElement("img");
+    //  src?
+     storeItemImgEl.src = `assets/icons/${storeItem.id}.svg`;
+    storeItemImgEl.alt = storeItem.name
+
+    const storeItemButtonEl = document.createElement("button")
+    console.log(storeItemButtonEl)
+    storeItemButtonEl.innerHTML = "Add to Cart"
+
+    storeItemListEl.append(storeItemListItemEl)
+    storeItemListItemEl.append(storeItemDivEl)
+    storeItemDivEl.append(storeItemImgEl)
+    storeItemListItemEl.append(storeItemButtonEl)
+    
+  }
+
+}
+createStoreItem(data)
 // Tips
 // - Use action functions with your Event Listeners, these will have names like addItemToCart and removeItemFromCart
 // 3.92 use action functions - addItemToCart and removeItemFromCart - should this be in the cart section?
@@ -207,6 +327,68 @@ const cartItemEl = document.querySelector(".cart--item-list")
 // ...these will have names like addItemToCart and removeItemFromCart
 // 4.3 use action functions - addItemToCart and removeItemFromCart
 // ... - link the buttons to totalPrice/calulator
+// Cart Section
+
+/* <li>
+  <img
+    class="cart--item-icon"
+    src="assets/icons/001-beetroot.svg"
+    alt="beetroot"
+  />
+  <p>beetroot</p>
+  <button class="quantity-btn remove-btn center">-</button>
+  <span class="quantity-text center">1</span>
+  <button class="quantity-btn add-btn center">+</button>
+</li> */
+function createCartItem(cartItemList) {
+  console.log("Inside createCartItem: ", cartItemList)
+
+  cartItemListEl.innerHTML = ""
+
+  for(let i = 0; i < cartItemList.length; i++) {
+   const cartItem = cartItemList[i]
+    console.log(cartItem)
+    const cartItemListItemEl = document.createElement("li");
+    // console.log("Inside cartItemListEl: ", cartItemListEl)
+   
+   const cartItemImgEl = document.createElement("img");
+   cartItemImgEl.className = "cart--item-icon";
+   cartItemImgEl.src = `assets/icons/${cartItem.item.id}.svg`;
+   cartItemImgEl.alt = cartItem.item.name
+     // console.log("Inside cartItemImgEl: ", cartItemImgEl)
+
+  //  Why is this not working? - says it's unused
+   const cartItemParagraghEl = document.createElement("p");
+  //  console.log("Inside cartItemParagraphEl: ", cartItemParagraphEl)
+   
+   const cartItemRemoveButtonEl = document.createElement("button");
+   cartItemRemoveButtonEl.className = "quantity-btn remove-btn center"
+  //  console.log("Inside cartItemRemoveButtonEl: ", cartItemRemoveButtonEl)
+  
+  
+   const cartItemSpanEl = document.createElement("span")
+  // add number ?
+   cartItemSpanEl.className = "quantity-text center"
+   cartItemSpanEl = cartItem.quantity
+   console.log("Inside cartItemSpanEl: ", cartItemSpanEl)
+   cartItemSpanEl.innerHTML = cartItem.quantity
+
+   const cartItemAddButtonEl = document.createElement("button")
+   cartItemAddButtonEl.className = "quantity-btn remove-btn center"
+   console.log("Inside cartItemAddButtonEl:", cartItemAddButtonEl)
+
+
+   cartItemListEl.append(cartItemListItemEl)
+   cartItemListItemEl.append(cartItemImgEl)
+   cartItemListItemEl.append(cartItemParagraphEl)
+   cartItemListItemEl.append(cartItemRemoveButtonEl)
+   cartItemListItemEl.append(cartItemSpanEl)
+   cartItemListItemEl.append(cartItemAddButtonEl)
+   
+}
+
+}
+createCartItem(cartItems)
 
 
 // 5.0 createTotalPrice/calculator
