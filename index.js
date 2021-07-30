@@ -69,7 +69,7 @@ const cartItems = [
         name: "eggplant",
         price: 0.45 // <- You can come up with your own prices
       },
-      quantity: 3
+      quantity: 0
     },
     {
     item: {
@@ -146,10 +146,10 @@ const cartItems = [
 ]
 
 // Add below?
-const newCartItem = {
-  item: storeItem
-  quantity: 1
-}
+// const newCartItem = {
+//   item: storeItem
+//   quantity: 1
+// }
 
 // Description
 // In this exercise we explore a common scenario in eCommerce, adding and removing items from the cart, and calculating the total.
@@ -256,21 +256,21 @@ const cartItemListEl = document.querySelector(".cart--item-list")
   <button>Add to cart</button>
 </li> */
 
-console.log(data)
+// console.log(data)
 
 function createStoreItem(storeItemList) {
-    console.log("Inside createStoreItem: ", storeItemList)
+    // console.log("Inside createStoreItem: ", storeItemList)
 
     storeItemListEl.innerHTML = ""
 
     for(let i = 0; i < storeItemList.length; i++) {
      const storeItem = storeItemList[i]
-      console.log(storeItem)
+      // console.log(storeItem)
     const storeItemListItemEl = document.createElement("li");
      
      const storeItemDivEl = document.createElement("div");
      storeItemDivEl.className = "store--item-icon";
-      console.log("Inside storreItemDivEl: ", storeItemDivEl)
+      // console.log("Inside storreItemDivEl: ", storeItemDivEl)
     //  I'm not sure about the below - img , it makes sense to me to include it
      const storeItemImgEl = document.createElement("img");
     //  src?
@@ -278,7 +278,7 @@ function createStoreItem(storeItemList) {
     storeItemImgEl.alt = storeItem.name
 
     const storeItemButtonEl = document.createElement("button")
-    console.log(storeItemButtonEl)
+    // console.log(storeItemButtonEl)
     storeItemButtonEl.innerHTML = "Add to Cart"
 
     storeItemListEl.append(storeItemListItemEl)
@@ -341,13 +341,14 @@ createStoreItem(data)
   <button class="quantity-btn add-btn center">+</button>
 </li> */
 function createCartItem(cartItemList) {
-  console.log("Inside createCartItem: ", cartItemList)
+  // console.log("Inside createCartItem: ", cartItemList)
 
   cartItemListEl.innerHTML = ""
 
   for(let i = 0; i < cartItemList.length; i++) {
    const cartItem = cartItemList[i]
-    console.log(cartItem)
+   const item = cartItem.item;
+    // console.log(cartItem)
     const cartItemListItemEl = document.createElement("li");
     // console.log("Inside cartItemListEl: ", cartItemListEl)
    
@@ -358,37 +359,126 @@ function createCartItem(cartItemList) {
      // console.log("Inside cartItemImgEl: ", cartItemImgEl)
 
   //  Why is this not working? - says it's unused
-   const cartItemParagraghEl = document.createElement("p");
+  //  const cartItemParagraghEl = document.createElement("p");
   //  console.log("Inside cartItemParagraphEl: ", cartItemParagraphEl)
    
    const cartItemRemoveButtonEl = document.createElement("button");
    cartItemRemoveButtonEl.className = "quantity-btn remove-btn center"
   //  console.log("Inside cartItemRemoveButtonEl: ", cartItemRemoveButtonEl)
-  
-  
+  cartItemRemoveButtonEl.innerText = "-"
+
+   // add number ?
    const cartItemSpanEl = document.createElement("span")
-  // add number ?
+ 
    cartItemSpanEl.className = "quantity-text center"
-   cartItemSpanEl = cartItem.quantity
-   console.log("Inside cartItemSpanEl: ", cartItemSpanEl)
+   .id = cartItem.quantity
+  //  console.log("Inside cartItemSpanEl: ", cartItemSpanEl)
    cartItemSpanEl.innerHTML = cartItem.quantity
 
    const cartItemAddButtonEl = document.createElement("button")
    cartItemAddButtonEl.className = "quantity-btn remove-btn center"
-   console.log("Inside cartItemAddButtonEl:", cartItemAddButtonEl)
+  //  console.log("Inside cartItemAddButtonEl:", cartItemAddButtonEl)
+   cartItemAddButtonEl.innerText = "+"
 
+   cartItemAddButtonEl.addEventListener("click", () => {
+    // console.log("Item onClick: ", item);
+    addToCart(item, cartItems);
+    createCartItem(cartItems);
+  });
 
-   cartItemListEl.append(cartItemListItemEl)
+  cartItemListEl.append(cartItemListItemEl)
    cartItemListItemEl.append(cartItemImgEl)
-   cartItemListItemEl.append(cartItemParagraphEl)
+  //  cartItemListItemEl.append(cartItemParagraphEl)
    cartItemListItemEl.append(cartItemRemoveButtonEl)
    cartItemListItemEl.append(cartItemSpanEl)
    cartItemListItemEl.append(cartItemAddButtonEl)
+   
    
 }
 
 }
 createCartItem(cartItems)
+
+
+// delete - Stevens
+
+function addToCart(storeItem, cartItems) {
+  // console.log("Inside addToCart: ", storeItem, cartItems.length);
+
+  let itemFound = false;
+
+  // ONE JOB: Check if storeItem exists in cartItems
+  // If it finds it... update the quanity and update itemFound.
+
+  for (let i = 0; i < cartItems.length; i++) {
+    const cartItem = cartItems[i];
+
+    // console.log("Inside Loop: ", storeItem, cartItem);
+    if (storeItem.id === cartItem.item.id) {
+      // console.log("I found a matching item in the cart!");
+      cartItem.quantity = cartItem.quantity + 1;
+
+      itemFound = true;
+    }
+  }
+
+  // console.log(!itemFound);
+
+  // ONE JOB: If storeItem doesn't exist in cart... add to cart
+  if (!itemFound) {
+    const newCartItem = {
+      item: storeItem,
+      quantity: 1
+    };
+
+    cartItems.push(newCartItem);
+  }
+}
+
+// delete - Stevens
+
+// 1.1 I need to take a storeItem object away from the list of items in the cartItems array.
+// 1.2 steps - If I click the minus button, then it will take one away from the total quanitity of that item in the cart.
+// 1.3 actions - make a function removeButton & add Event Listener (last thing to do)
+// 1.4 within the function removeButton, there needs to a for loop like the addButton, with an if statement, but not as complicated I don't think because we're not starting off with 0, but it will  be more complicated, who knows.
+// does there need to be an iffound=true/false? probably not
+function removeButton(storeItem, cartItems) {
+    // console.log(storeItem, cartItems.length)
+// I need to do a for loop here to run through the cartItems array
+    // I need an if/else statement of if quantity is > / >= 2 (when remove button is clicked - include in function?), take away 1 from the quanityt...else remove item from cart
+   
+    // let quantityDeducted = false
+
+    for (let i = 0; i < cartItems.length; i++) {
+      // I assume, you don't need this - I have been trying to use console.log, but when it doesn't work and I'm stuck I just feel I should just crack on with the exercise just to get it done, otherwise I feel like I am using up time. I need to work on using console.log more effectively...
+      const cartItem = cartItems[i];
+      console.log(storeItem, cartItems.length)
+      
+
+    if (cartItem.quantity = 0) {
+      console.log("items that equal 0: ", cartItem)
+      
+      cartItems.splice(cartitem);
+
+      else(cartItem.quantity >= 2)
+      cartItem.quantity = cartItem.quantity - 1;
+
+
+
+
+    }
+
+  }
+
+  // if (quantityDeducted) {
+  //   const newCartItem = {
+  //     item: storeItem,
+  //     quantity: 1
+  //   };
+
+  //   cartItems.push(newCartItem);
+    }
+
 
 
 // 5.0 createTotalPrice/calculator
